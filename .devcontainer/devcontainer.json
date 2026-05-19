@@ -1,0 +1,26 @@
+{
+  "name": "YOLOv8n + OpenCV2 Dev",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "mounts": [
+    "source=${localWorkspaceFolder}/image,target=/workspace/image,type=bind",
+    "source=${localWorkspaceFolder}/src,target=/workspace/src,type=bind"
+  ],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.debugpy",
+        "ms-toolsai.jupyter"
+      ],
+      "settings": {
+        "python.defaultInterpreterPath": "/usr/bin/python3",
+        "python.terminal.activateEnvironment": false
+      }
+    }
+  },
+  "runArgs": [
+    "--shm-size=2g"
+  ]
+}
