@@ -1,0 +1,797 @@
+%TileSplitCase_0 = fusion<k230>(%var_1536: f32[1,256,10,10]): // (f32[1,256,10,10]) -> (f32[1,128,10,10], f32[1,128,10,10])
+{
+  %0 = GNNELoad(%var_1536: f32[1,256,10,10]): // f16[1,256,10,10]
+  %1 = Split(%0, const(i32 : 1), const(i32[2] : {128,128})): // (f16[1,128,10,10], f16[1,128,10,10])
+  %2 = GetItem(%1, const(i32 : 0)): // f16[1,128,10,10]
+  %3 = GNNEStore(%2, const(i64[4] : {1L,1L,1L,1L})): // f32[1,128,10,10]
+  %4 = GetItem(%1, const(i32 : 1)): // f16[1,128,10,10]
+  %5 = GNNEStore(%4, const(i64[4] : {1L,1L,1L,1L})): // f32[1,128,10,10]
+  %6 = (%3, %5): // (f32[1,128,10,10], f32[1,128,10,10])
+  
+}
+%TileAct1Case_0_TileConv2dCase_0 = fusion<k230>(%var_913: i8[1,384,10,10]): // (i8[1,384,10,10]) -> f32[1,256,10,10]
+{
+  %0 = GNNELoad(%var_913: i8[1,384,10,10]): // i8[1,384,10,10]
+  %1 = GNNELoadW(const(i8[256,384,1,1])): // i8[256,384,1,1]
+  %2 = GNNELoadW(const(u8[1,1,1,256])): // u8[1,1,1,256]
+  %3 = GNNELoadW(const(u8[256])): // u8[256]
+  %4 = GNNELoadW(const(f16[1,1,256,7])): // f16[1,1,256,7]
+  %5 = GNNELoadW(const(f16[1,1,256,7])): // f16[1,1,256,7]
+  %6 = GNNELoadW(const(u8[98304])): // u8[98304]
+  %7 = GNNEConv2D(%0, %1, %2, %3, %4, %5, const(i32 : 0), const(i32 : 27), const(i32 : 0), const(DeQParam : <14, 0.02012384>), const(i64[2,2] : {{0L,0L},{0L,0L}}), const(i64[2] : {1L,1L}), const(i64[2] : {1L,1L}), const(i32 : 1), const(bool : False), const(i16 : 0), %6): // f16[1,256,10,10]
+  %8 = GNNELoadW(const(f16[1,1,1,49])): // f16[1,1,1,49]
+  %9 = GNNEActivation(%7, None, %8, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.052322105>}), const(DeQParam : {<0, 1>}), const(i32 : 1), const(bool : True)): // f16[1,256,10,10]
+  %10 = GNNEStore(%9, const(i64[4] : {1L,1L,1L,1L})): // f32[1,256,10,10]
+}
+%TileAct1Case_0_TileConv2dCase_0 = fusion<k230>(%var_886: i8[1,128,20,20]): // (i8[1,128,20,20]) -> i8[1,128,10,10]
+{
+  %0 = GNNELoad(%var_886: i8[1,128,20,20]): // i8[1,128,20,20]
+  %1 = GNNELoadW(const(i8[128,128,3,3])): // i8[128,128,3,3]
+  %2 = GNNELoadW(const(u8[1,1,1,128])): // u8[1,1,1,128]
+  %3 = GNNELoadW(const(u8[128])): // u8[128]
+  %4 = GNNELoadW(const(f16[1,1,128,7])): // f16[1,1,128,7]
+  %5 = GNNELoadW(const(f16[1,1,128,7])): // f16[1,1,128,7]
+  %6 = GNNELoadW(const(u8[147456])): // u8[147456]
+  %7 = GNNEConv2D(%0, %1, %2, %3, %4, %5, const(i32 : 0), const(i32 : 28), const(i32 : 0), const(DeQParam : <12, 0.023575742>), const(i64[2,2] : {{1L,1L},{1L,1L}}), const(i64[2] : {2L,2L}), const(i64[2] : {1L,1L}), const(i32 : 1), const(bool : False), const(i16 : 0), %6): // f16[1,128,10,10]
+  %8 = GNNELoadW(const(f16[1,1,1,49])): // f16[1,1,1,49]
+  %9 = GNNEActivation(%7, None, %8, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.045458954>}), const(DeQParam : {<0, 1>}), const(i32 : 1), const(bool : True)): // i8[1,128,10,10]
+  %10 = GNNEStore(%9, const(i64[4] : {1L,1L,1L,1L})): // i8[1,128,10,10]
+}
+%TileAct1Case_0_TileConv2dCase_0 = fusion<k230>(%var_808: i8[1,192,20,20]): // (i8[1,192,20,20]) -> i8[1,128,20,20]
+{
+  %0 = GNNELoad(%var_808: i8[1,192,20,20]): // i8[1,192,20,20]
+  %1 = GNNELoadW(const(i8[128,192,1,1])): // i8[128,192,1,1]
+  %2 = GNNELoadW(const(u8[1,1,1,128])): // u8[1,1,1,128]
+  %3 = GNNELoadW(const(u8[128])): // u8[128]
+  %4 = GNNELoadW(const(f16[1,1,128,7])): // f16[1,1,128,7]
+  %5 = GNNELoadW(const(f16[1,1,128,7])): // f16[1,1,128,7]
+  %6 = GNNELoadW(const(u8[24576])): // u8[24576]
+  %7 = GNNEConv2D(%0, %1, %2, %3, %4, %5, const(i32 : 0), const(i32 : 26), const(i32 : 0), const(DeQParam : <9, 0.031169472>), const(i64[2,2] : {{0L,0L},{0L,0L}}), const(i64[2] : {1L,1L}), const(i64[2] : {1L,1L}), const(i32 : 1), const(bool : False), const(i16 : 0), %6): // f16[1,128,20,20]
+  %8 = GNNELoadW(const(f16[1,1,1,49])): // f16[1,1,1,49]
+  %9 = GNNEActivation(%7, None, %8, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.067988314>}), const(DeQParam : {<0, 1>}), const(i32 : 1), const(bool : True)): // i8[1,128,20,20]
+  %10 = GNNEStore(%9, const(i64[4] : {1L,1L,1L,1L})): // i8[1,128,20,20]
+}
+%TileAct1Case_0 = fusion<k230>(%var_126: f32[1,64,20,20]): // (f32[1,64,20,20]) -> i8[1,64,20,20]
+{
+  %0 = GNNELoad(%var_126: f32[1,64,20,20]): // f16[1,64,20,20]
+  %1 = GNNELoadW(const(f16[1,1,64,7])): // f16[1,1,64,7]
+  %2 = GNNEActivation(%0, None, %1, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.06039174>}), const(DeQParam : {<0, 0.06039174>}), const(i32 : 64), const(bool : False)): // i8[1,64,20,20]
+  %3 = GNNEStore(%2, const(i64[4] : {1L,1L,1L,1L})): // i8[1,64,20,20]
+}
+%TileSplitCase_0 = fusion<k230>(%var_1535: f32[1,128,20,20]): // (f32[1,128,20,20]) -> (f32[1,64,20,20], f32[1,64,20,20])
+{
+  %0 = GNNELoad(%var_1535: f32[1,128,20,20]): // f16[1,128,20,20]
+  %1 = Split(%0, const(i32 : 1), const(i32[2] : {64,64})): // (f16[1,64,20,20], f16[1,64,20,20])
+  %2 = GetItem(%1, const(i32 : 0)): // f16[1,64,20,20]
+  %3 = GNNEStore(%2, const(i64[4] : {1L,1L,1L,1L})): // f32[1,64,20,20]
+  %4 = GetItem(%1, const(i32 : 1)): // f16[1,64,20,20]
+  %5 = GNNEStore(%4, const(i64[4] : {1L,1L,1L,1L})): // f32[1,64,20,20]
+  %6 = (%3, %5): // (f32[1,64,20,20], f32[1,64,20,20])
+  
+}
+%TileAct1Case_0_TileConv2dCase_0 = fusion<k230>(%var_734: i8[1,192,20,20]): // (i8[1,192,20,20]) -> f32[1,128,20,20]
+{
+  %0 = GNNELoad(%var_734: i8[1,192,20,20]): // i8[1,192,20,20]
+  %1 = GNNELoadW(const(i8[128,192,1,1])): // i8[128,192,1,1]
+  %2 = GNNELoadW(const(u8[1,1,1,128])): // u8[1,1,1,128]
+  %3 = GNNELoadW(const(u8[128])): // u8[128]
+  %4 = GNNELoadW(const(f16[1,1,128,7])): // f16[1,1,128,7]
+  %5 = GNNELoadW(const(f16[1,1,128,7])): // f16[1,1,128,7]
+  %6 = GNNELoadW(const(u8[24576])): // u8[24576]
+  %7 = GNNEConv2D(%0, %1, %2, %3, %4, %5, const(i32 : 0), const(i32 : 27), const(i32 : 0), const(DeQParam : <13, 0.02191572>), const(i64[2,2] : {{0L,0L},{0L,0L}}), const(i64[2] : {1L,1L}), const(i64[2] : {1L,1L}), const(i32 : 1), const(bool : False), const(i16 : 0), %6): // f16[1,128,20,20]
+  %8 = GNNELoadW(const(f16[1,1,1,49])): // f16[1,1,1,49]
+  %9 = GNNEActivation(%7, None, %8, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.060419824>}), const(DeQParam : {<0, 1>}), const(i32 : 1), const(bool : True)): // f16[1,128,20,20]
+  %10 = GNNEStore(%9, const(i64[4] : {1L,1L,1L,1L})): // f32[1,128,20,20]
+}
+%TileAct1Case_0_TileConv2dCase_0 = fusion<k230>(%var_710: i8[1,64,40,40]): // (i8[1,64,40,40]) -> i8[1,64,20,20]
+{
+  %0 = GNNELoad(%var_710: i8[1,64,40,40]): // i8[1,64,40,40]
+  %1 = GNNELoadW(const(i8[64,64,3,3])): // i8[64,64,3,3]
+  %2 = GNNELoadW(const(u8[1,1,1,64])): // u8[1,1,1,64]
+  %3 = GNNELoadW(const(u8[64])): // u8[64]
+  %4 = GNNELoadW(const(f16[1,1,64,7])): // f16[1,1,64,7]
+  %5 = GNNELoadW(const(f16[1,1,64,7])): // f16[1,1,64,7]
+  %6 = GNNELoadW(const(u8[36864])): // u8[36864]
+  %7 = GNNEConv2D(%0, %1, %2, %3, %4, %5, const(i32 : 0), const(i32 : 28), const(i32 : 0), const(DeQParam : <17, 0.016842699>), const(i64[2,2] : {{1L,1L},{1L,1L}}), const(i64[2] : {2L,2L}), const(i64[2] : {1L,1L}), const(i32 : 1), const(bool : False), const(i16 : 0), %6): // f16[1,64,20,20]
+  %8 = GNNELoadW(const(f16[1,1,1,49])): // f16[1,1,1,49]
+  %9 = GNNEActivation(%7, None, %8, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.05374453>}), const(DeQParam : {<0, 1>}), const(i32 : 1), const(bool : True)): // i8[1,64,20,20]
+  %10 = GNNEStore(%9, const(i64[4] : {1L,1L,1L,1L})): // i8[1,64,20,20]
+}
+%TileAct1Case_0_TileConv2dCase_0 = fusion<k230>(%var_641: i8[1,96,40,40]): // (i8[1,96,40,40]) -> i8[1,64,40,40]
+{
+  %0 = GNNELoad(%var_641: i8[1,96,40,40]): // i8[1,96,40,40]
+  %1 = GNNELoadW(const(i8[64,96,1,1])): // i8[64,96,1,1]
+  %2 = GNNELoadW(const(u8[1,1,1,64])): // u8[1,1,1,64]
+  %3 = GNNELoadW(const(u8[64])): // u8[64]
+  %4 = GNNELoadW(const(f16[1,1,64,7])): // f16[1,1,64,7]
+  %5 = GNNELoadW(const(f16[1,1,64,7])): // f16[1,1,64,7]
+  %6 = GNNELoadW(const(u8[6144])): // u8[6144]
+  %7 = GNNEConv2D(%0, %1, %2, %3, %4, %5, const(i32 : 0), const(i32 : 27), const(i32 : 0), const(DeQParam : <14, 0.019411225>), const(i64[2,2] : {{0L,0L},{0L,0L}}), const(i64[2] : {1L,1L}), const(i64[2] : {1L,1L}), const(i32 : 1), const(bool : False), const(i16 : 0), %6): // f16[1,64,40,40]
+  %8 = GNNELoadW(const(f16[1,1,1,49])): // f16[1,1,1,49]
+  %9 = GNNEActivation(%7, None, %8, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.050555594>}), const(DeQParam : {<0, 1>}), const(i32 : 1), const(bool : True)): // i8[1,64,40,40]
+  %10 = GNNEStore(%9, const(i64[4] : {1L,1L,1L,1L})): // i8[1,64,40,40]
+}
+%TileAct1Case_0 = fusion<k230>(%var_117: f32[1,32,40,40]): // (f32[1,32,40,40]) -> i8[1,32,40,40]
+{
+  %0 = GNNELoad(%var_117: f32[1,32,40,40]): // f16[1,32,40,40]
+  %1 = GNNELoadW(const(f16[1,1,32,7])): // f16[1,1,32,7]
+  %2 = GNNEActivation(%0, None, %1, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.03678266>}), const(DeQParam : {<0, 0.03678266>}), const(i32 : 32), const(bool : False)): // i8[1,32,40,40]
+  %3 = GNNEStore(%2, const(i64[4] : {1L,1L,1L,1L})): // i8[1,32,40,40]
+}
+%TileSplitCase_0 = fusion<k230>(%var_1534: f32[1,64,40,40]): // (f32[1,64,40,40]) -> (f32[1,32,40,40], f32[1,32,40,40])
+{
+  %0 = GNNELoad(%var_1534: f32[1,64,40,40]): // f16[1,64,40,40]
+  %1 = Split(%0, const(i32 : 1), const(i32[2] : {32,32})): // (f16[1,32,40,40], f16[1,32,40,40])
+  %2 = GetItem(%1, const(i32 : 0)): // f16[1,32,40,40]
+  %3 = GNNEStore(%2, const(i64[4] : {1L,1L,1L,1L})): // f32[1,32,40,40]
+  %4 = GetItem(%1, const(i32 : 1)): // f16[1,32,40,40]
+  %5 = GNNEStore(%4, const(i64[4] : {1L,1L,1L,1L})): // f32[1,32,40,40]
+  %6 = (%3, %5): // (f32[1,32,40,40], f32[1,32,40,40])
+  
+}
+%TileAct1Case_0_TileConv2dCase_0 = fusion<k230>(%var_576: i8[1,192,40,40]): // (i8[1,192,40,40]) -> f32[1,64,40,40]
+{
+  %0 = GNNELoad(%var_576: i8[1,192,40,40]): // i8[1,192,40,40]
+  %1 = GNNELoadW(const(i8[64,192,1,1])): // i8[64,192,1,1]
+  %2 = GNNELoadW(const(u8[1,1,1,64])): // u8[1,1,1,64]
+  %3 = GNNELoadW(const(u8[64])): // u8[64]
+  %4 = GNNELoadW(const(f16[1,1,64,7])): // f16[1,1,64,7]
+  %5 = GNNELoadW(const(f16[1,1,64,7])): // f16[1,1,64,7]
+  %6 = GNNELoadW(const(u8[12288])): // u8[12288]
+  %7 = GNNEConv2D(%0, %1, %2, %3, %4, %5, const(i32 : 0), const(i32 : 27), const(i32 : 0), const(DeQParam : <12, 0.02290487>), const(i64[2,2] : {{0L,0L},{0L,0L}}), const(i64[2] : {1L,1L}), const(i64[2] : {1L,1L}), const(i32 : 1), const(bool : False), const(i16 : 0), %6): // f16[1,64,40,40]
+  %8 = GNNELoadW(const(f16[1,1,1,49])): // f16[1,1,1,49]
+  %9 = GNNEActivation(%7, None, %8, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.054589506>}), const(DeQParam : {<0, 1>}), const(i32 : 1), const(bool : True)): // f16[1,64,40,40]
+  %10 = GNNEStore(%9, const(i64[4] : {1L,1L,1L,1L})): // f32[1,64,40,40]
+}
+%TileAct1Case_0 = fusion<k230>(%var_115: i8[1,128,20,20]): // (i8[1,128,20,20]) -> i8[1,128,40,40]
+{
+  %0 = GNNELoad(%var_115: i8[1,128,20,20]): // i8[1,128,20,20]
+  %1 = GNNELoadW(const(f16[1,1,128,7])): // f16[1,1,128,7]
+  %2 = GNNEActivation(%0, None, %1, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.04181137>}), const(DeQParam : {<0, 1>}), const(i32 : 128), const(bool : False)): // i8[1,128,40,40]
+  %3 = GNNEStore(%2, const(i64[4] : {1L,1L,1L,1L})): // i8[1,128,40,40]
+}
+%TileAct1Case_0_TileConv2dCase_0 = fusion<k230>(%var_555: i8[1,192,20,20]): // (i8[1,192,20,20]) -> i8[1,128,20,20]
+{
+  %0 = GNNELoad(%var_555: i8[1,192,20,20]): // i8[1,192,20,20]
+  %1 = GNNELoadW(const(i8[128,192,1,1])): // i8[128,192,1,1]
+  %2 = GNNELoadW(const(u8[1,1,1,128])): // u8[1,1,1,128]
+  %3 = GNNELoadW(const(u8[128])): // u8[128]
+  %4 = GNNELoadW(const(f16[1,1,128,7])): // f16[1,1,128,7]
+  %5 = GNNELoadW(const(f16[1,1,128,7])): // f16[1,1,128,7]
+  %6 = GNNELoadW(const(u8[24576])): // u8[24576]
+  %7 = GNNEConv2D(%0, %1, %2, %3, %4, %5, const(i32 : 0), const(i32 : 27), const(i32 : 0), const(DeQParam : <11, 0.02509478>), const(i64[2,2] : {{0L,0L},{0L,0L}}), const(i64[2] : {1L,1L}), const(i64[2] : {1L,1L}), const(i32 : 1), const(bool : False), const(i16 : 0), %6): // f16[1,128,20,20]
+  %8 = GNNELoadW(const(f16[1,1,1,49])): // f16[1,1,1,49]
+  %9 = GNNEActivation(%7, None, %8, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.05534166>}), const(DeQParam : {<0, 1>}), const(i32 : 1), const(bool : True)): // i8[1,128,20,20]
+  %10 = GNNEStore(%9, const(i64[4] : {1L,1L,1L,1L})): // i8[1,128,20,20]
+}
+%TileAct1Case_0 = fusion<k230>(%var_110: f32[1,64,20,20]): // (f32[1,64,20,20]) -> i8[1,64,20,20]
+{
+  %0 = GNNELoad(%var_110: f32[1,64,20,20]): // f16[1,64,20,20]
+  %1 = GNNELoadW(const(f16[1,1,64,7])): // f16[1,1,64,7]
+  %2 = GNNEActivation(%0, None, %1, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.048194516>}), const(DeQParam : {<0, 0.048194516>}), const(i32 : 64), const(bool : False)): // i8[1,64,20,20]
+  %3 = GNNEStore(%2, const(i64[4] : {1L,1L,1L,1L})): // i8[1,64,20,20]
+}
+%TileSplitCase_0 = fusion<k230>(%var_1533: f32[1,128,20,20]): // (f32[1,128,20,20]) -> (f32[1,64,20,20], f32[1,64,20,20])
+{
+  %0 = GNNELoad(%var_1533: f32[1,128,20,20]): // f16[1,128,20,20]
+  %1 = Split(%0, const(i32 : 1), const(i32[2] : {64,64})): // (f16[1,64,20,20], f16[1,64,20,20])
+  %2 = GetItem(%1, const(i32 : 0)): // f16[1,64,20,20]
+  %3 = GNNEStore(%2, const(i64[4] : {1L,1L,1L,1L})): // f32[1,64,20,20]
+  %4 = GetItem(%1, const(i32 : 1)): // f16[1,64,20,20]
+  %5 = GNNEStore(%4, const(i64[4] : {1L,1L,1L,1L})): // f32[1,64,20,20]
+  %6 = (%3, %5): // (f32[1,64,20,20], f32[1,64,20,20])
+  
+}
+%TileAct1Case_0_TileConv2dCase_0 = fusion<k230>(%var_493: i8[1,384,20,20]): // (i8[1,384,20,20]) -> f32[1,128,20,20]
+{
+  %0 = GNNELoad(%var_493: i8[1,384,20,20]): // i8[1,384,20,20]
+  %1 = GNNELoadW(const(i8[128,384,1,1])): // i8[128,384,1,1]
+  %2 = GNNELoadW(const(u8[1,1,1,128])): // u8[1,1,1,128]
+  %3 = GNNELoadW(const(u8[128])): // u8[128]
+  %4 = GNNELoadW(const(f16[1,1,128,7])): // f16[1,1,128,7]
+  %5 = GNNELoadW(const(f16[1,1,128,7])): // f16[1,1,128,7]
+  %6 = GNNELoadW(const(u8[49152])): // u8[49152]
+  %7 = GNNEConv2D(%0, %1, %2, %3, %4, %5, const(i32 : 0), const(i32 : 26), const(i32 : 0), const(DeQParam : <11, 0.025827797>), const(i64[2,2] : {{0L,0L},{0L,0L}}), const(i64[2] : {1L,1L}), const(i64[2] : {1L,1L}), const(i32 : 1), const(bool : False), const(i16 : 0), %6): // f16[1,128,20,20]
+  %8 = GNNELoadW(const(f16[1,1,1,49])): // f16[1,1,1,49]
+  %9 = GNNEActivation(%7, None, %8, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.06042751>}), const(DeQParam : {<0, 1>}), const(i32 : 1), const(bool : True)): // f16[1,128,20,20]
+  %10 = GNNEStore(%9, const(i64[4] : {1L,1L,1L,1L})): // f32[1,128,20,20]
+}
+%TileAct1Case_0 = fusion<k230>(%var_108: i8[1,256,10,10]): // (i8[1,256,10,10]) -> i8[1,256,20,20]
+{
+  %0 = GNNELoad(%var_108: i8[1,256,10,10]): // i8[1,256,10,10]
+  %1 = GNNELoadW(const(f16[1,1,256,7])): // f16[1,1,256,7]
+  %2 = GNNEActivation(%0, None, %1, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.0382135>}), const(DeQParam : {<0, 1>}), const(i32 : 256), const(bool : False)): // i8[1,256,20,20]
+  %3 = GNNEStore(%2, const(i64[4] : {1L,1L,1L,1L})): // i8[1,256,20,20]
+}
+%TileAct1Case_0_TileConv2dCase_0 = fusion<k230>(%var_473: i8[1,512,10,10]): // (i8[1,512,10,10]) -> i8[1,256,10,10]
+{
+  %0 = GNNELoad(%var_473: i8[1,512,10,10]): // i8[1,512,10,10]
+  %1 = GNNELoadW(const(i8[256,528,1,1])): // i8[256,528,1,1]
+  %2 = GNNELoadW(const(u8[1,1,1,256])): // u8[1,1,1,256]
+  %3 = GNNELoadW(const(u8[256])): // u8[256]
+  %4 = GNNELoadW(const(f16[1,1,256,7])): // f16[1,1,256,7]
+  %5 = GNNELoadW(const(f16[1,1,256,7])): // f16[1,1,256,7]
+  %6 = GNNELoadW(const(u8[131072])): // u8[131072]
+  %7 = GNNEConv2D(%0, %1, %2, %3, %4, %5, const(i32 : 0), const(i32 : 28), const(i32 : 0), const(DeQParam : <92, 0.040634777>), const(i32[2,2] : {{0,0},{0,0}}), const(i32[2] : {1,1}), const(i32[2] : {1,1}), const(i32 : 1), const(bool : False), const(i16 : 0), %6): // f16[1,256,10,10]
+  %8 = GNNELoadW(const(f16[1,1,1,49])): // f16[1,1,1,49]
+  %9 = GNNEActivation(%7, None, %8, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.049348798>}), const(DeQParam : {<0, 1>}), const(i32 : 1), const(bool : True)): // i8[1,256,10,10]
+  %10 = GNNEStore(%9, const(i64[4] : {1L,1L,1L,1L})): // i8[1,256,10,10]
+}
+%TileConv2dCase_0_TileAct1Case_0_TileConv2dCase_0_TileAct1Case_0_concat = fusion<k230>(%var_1519: f32[1,128,10,10], %var_1520: f32[1,128,10,10], %var_1521: f32[1,128,10,10]): // (f32[1,128,10,10], f32[1,128,10,10], f32[1,128,10,10]) -> i8[1,128,10,10]
+{
+  %0 = (%var_1519: f32[1,128,10,10], %var_1520: f32[1,128,10,10], %var_1521: f32[1,128,10,10]): // (f32[1,128,10,10], f32[1,128,10,10], f32[1,128,10,10])
+  
+  %1 = Concat(Axis: 1, %0): // f32[1,384,10,10]
+  %2 = GNNELoad(%1): // f16[1,384,10,10]
+  %3 = GNNELoadW(const(f16[1,1,384,7])): // f16[1,1,384,7]
+  %4 = GNNEActivation(%2, None, %3, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.08472058>}), const(DeQParam : {<0, 0.08472058>}), const(i32 : 384), const(bool : False)): // i8[1,384,10,10]
+  %5 = GNNELoadW(const(i8[256,384,1,1])): // i8[256,384,1,1]
+  %6 = GNNELoadW(const(u8[1,1,1,256])): // u8[1,1,1,256]
+  %7 = GNNELoadW(const(u8[256])): // u8[256]
+  %8 = GNNELoadW(const(f16[1,1,256,7])): // f16[1,1,256,7]
+  %9 = GNNELoadW(const(f16[1,1,256,7])): // f16[1,1,256,7]
+  %10 = GNNELoadW(const(u8[98304])): // u8[98304]
+  %11 = GNNEConv2D(%4, %5, %6, %7, %8, %9, const(i32 : 0), const(i32 : 27), const(i32 : 0), const(DeQParam : <13, 0.0443782>), const(i64[2,2] : {{0L,0L},{0L,0L}}), const(i64[2] : {1L,1L}), const(i64[2] : {1L,1L}), const(i32 : 1), const(bool : False), const(i16 : 0), %10): // f16[1,256,10,10]
+  %12 = GNNELoadW(const(f16[1,1,1,49])): // f16[1,1,1,49]
+  %13 = GNNEActivation(%11, None, %12, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.06930064>}), const(DeQParam : {<0, 1>}), const(i32 : 1), const(bool : True)): // i8[1,256,10,10]
+  %14 = GNNELoadW(const(i8[128,264,1,1])): // i8[128,264,1,1]
+  %15 = GNNELoadW(const(u8[1,1,1,128])): // u8[1,1,1,128]
+  %16 = GNNELoadW(const(u8[128])): // u8[128]
+  %17 = GNNELoadW(const(f16[1,1,128,7])): // f16[1,1,128,7]
+  %18 = GNNELoadW(const(f16[1,1,128,7])): // f16[1,1,128,7]
+  %19 = GNNELoadW(const(u8[32768])): // u8[32768]
+  %20 = GNNEConv2D(%13, %14, %15, %16, %17, %18, const(i32 : 0), const(i32 : 23), const(i32 : 0), const(DeQParam : <14, 0.020577557>), const(i32[2,2] : {{0,0},{0,0}}), const(i32[2] : {1,1}), const(i32[2] : {1,1}), const(i32 : 1), const(bool : False), const(i16 : 0), %19): // i8[1,128,10,10]
+  %21 = GNNEStore(%20, const(i64[4] : {1L,1L,1L,1L})): // i8[1,128,10,10]
+}
+%TileSplitCase_0 = fusion<k230>(%var_1532: f32[1,256,10,10]): // (f32[1,256,10,10]) -> (f32[1,128,10,10], f32[1,128,10,10])
+{
+  %0 = GNNELoad(%var_1532: f32[1,256,10,10]): // f16[1,256,10,10]
+  %1 = Split(%0, const(i32 : 1), const(i32[2] : {128,128})): // (f16[1,128,10,10], f16[1,128,10,10])
+  %2 = GetItem(%1, const(i32 : 0)): // f16[1,128,10,10]
+  %3 = GNNEStore(%2, const(i64[4] : {1L,1L,1L,1L})): // f32[1,128,10,10]
+  %4 = GetItem(%1, const(i32 : 1)): // f16[1,128,10,10]
+  %5 = GNNEStore(%4, const(i64[4] : {1L,1L,1L,1L})): // f32[1,128,10,10]
+  %6 = (%3, %5): // (f32[1,128,10,10], f32[1,128,10,10])
+  
+}
+%TileAct1Case_0_TileConv2dCase_0_TileAct1Case_0_TileConv2dCase_0 = fusion<k230>(%var_1355: i8[1,128,20,20]): // (i8[1,128,20,20]) -> f32[1,256,10,10]
+{
+  %0 = GNNELoad(%var_1355: i8[1,128,20,20]): // i8[1,128,20,20]
+  %1 = GNNELoadW(const(i8[256,128,3,3])): // i8[256,128,3,3]
+  %2 = GNNELoadW(const(u8[1,1,1,256])): // u8[1,1,1,256]
+  %3 = GNNELoadW(const(u8[256])): // u8[256]
+  %4 = GNNELoadW(const(f16[1,1,256,7])): // f16[1,1,256,7]
+  %5 = GNNELoadW(const(f16[1,1,256,7])): // f16[1,1,256,7]
+  %6 = GNNELoadW(const(u8[294912])): // u8[294912]
+  %7 = GNNEConv2D(%0, %1, %2, %3, %4, %5, const(i32 : 0), const(i32 : 28), const(i32 : 0), const(DeQParam : <11, 0.025827797>), const(i64[2,2] : {{1L,1L},{1L,1L}}), const(i64[2] : {2L,2L}), const(i64[2] : {1L,1L}), const(i32 : 1), const(bool : False), const(i16 : 0), %6): // f16[1,256,10,10]
+  %8 = GNNELoadW(const(f16[1,1,1,49])): // f16[1,1,1,49]
+  %9 = GNNEActivation(%7, None, %8, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.051624294>}), const(DeQParam : {<0, 1>}), const(i32 : 1), const(bool : True)): // i8[1,256,10,10]
+  %10 = GNNELoadW(const(i8[256,264,1,1])): // i8[256,264,1,1]
+  %11 = GNNELoadW(const(u8[256])): // u8[256]
+  %12 = GNNELoadW(const(f16[1,1,256,7])): // f16[1,1,256,7]
+  %13 = GNNELoadW(const(f16[1,1,256,7])): // f16[1,1,256,7]
+  %14 = GNNELoadW(const(u8[65536])): // u8[65536]
+  %15 = GNNEConv2D(%9, %10, %2, %11, %12, %13, const(i32 : 0), const(i32 : 27), const(i32 : 0), const(DeQParam : <13, 0.021628568>), const(i32[2,2] : {{0,0},{0,0}}), const(i32[2] : {1,1}), const(i32[2] : {1,1}), const(i32 : 1), const(bool : False), const(i16 : 0), %14): // f16[1,256,10,10]
+  %16 = GNNELoadW(const(f16[1,1,1,49])): // f16[1,1,1,49]
+  %17 = GNNEActivation(%15, None, %16, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.084044896>}), const(DeQParam : {<0, 1>}), const(i32 : 1), const(bool : True)): // f16[1,256,10,10]
+  %18 = GNNEStore(%17, const(i64[4] : {1L,1L,1L,1L})): // f32[1,256,10,10]
+}
+%TileAct1Case_0_TileConv2dCase_0_TileAct1Case_0_concat = fusion<k230>(%var_1513: f32[1,64,20,20], %var_1514: f32[1,64,20,20], %var_1515: f32[1,64,20,20], %var_1516: f32[1,64,20,20]): // (f32[1,64,20,20], f32[1,64,20,20], f32[1,64,20,20], f32[1,64,20,20]) -> i8[1,128,20,20]
+{
+  %0 = (%var_1513: f32[1,64,20,20], %var_1514: f32[1,64,20,20], %var_1515: f32[1,64,20,20], %var_1516: f32[1,64,20,20]): // (f32[1,64,20,20], f32[1,64,20,20], f32[1,64,20,20], f32[1,64,20,20])
+  
+  %1 = Concat(Axis: 1, %0): // f32[1,256,20,20]
+  %2 = GNNELoad(%1): // f16[1,256,20,20]
+  %3 = GNNELoadW(const(f16[1,1,256,7])): // f16[1,1,256,7]
+  %4 = GNNEActivation(%2, None, %3, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.056496434>}), const(DeQParam : {<0, 0.056496434>}), const(i32 : 256), const(bool : False)): // i8[1,256,20,20]
+  %5 = GNNELoadW(const(i8[128,264,1,1])): // i8[128,264,1,1]
+  %6 = GNNELoadW(const(u8[1,1,1,128])): // u8[1,1,1,128]
+  %7 = GNNELoadW(const(u8[128])): // u8[128]
+  %8 = GNNELoadW(const(f16[1,1,128,7])): // f16[1,1,128,7]
+  %9 = GNNELoadW(const(f16[1,1,128,7])): // f16[1,1,128,7]
+  %10 = GNNELoadW(const(u8[32768])): // u8[32768]
+  %11 = GNNEConv2D(%4, %5, %6, %7, %8, %9, const(i32 : 0), const(i32 : 28), const(i32 : 0), const(DeQParam : <27, 0.031411353>), const(i32[2,2] : {{0,0},{0,0}}), const(i32[2] : {1,1}), const(i32[2] : {1,1}), const(i32 : 1), const(bool : False), const(i16 : 0), %10): // f16[1,128,20,20]
+  %12 = GNNELoadW(const(f16[1,1,1,49])): // f16[1,1,1,49]
+  %13 = GNNEActivation(%11, None, %12, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.04975582>}), const(DeQParam : {<0, 1>}), const(i32 : 1), const(bool : True)): // i8[1,128,20,20]
+  %14 = GNNEStore(%13, const(i64[4] : {1L,1L,1L,1L})): // i8[1,128,20,20]
+}
+%TileSplitCase_0 = fusion<k230>(%var_1531: f32[1,128,20,20]): // (f32[1,128,20,20]) -> (f32[1,64,20,20], f32[1,64,20,20])
+{
+  %0 = GNNELoad(%var_1531: f32[1,128,20,20]): // f16[1,128,20,20]
+  %1 = Split(%0, const(i32 : 1), const(i32[2] : {64,64})): // (f16[1,64,20,20], f16[1,64,20,20])
+  %2 = GetItem(%1, const(i32 : 0)): // f16[1,64,20,20]
+  %3 = GNNEStore(%2, const(i64[4] : {1L,1L,1L,1L})): // f32[1,64,20,20]
+  %4 = GetItem(%1, const(i32 : 1)): // f16[1,64,20,20]
+  %5 = GNNEStore(%4, const(i64[4] : {1L,1L,1L,1L})): // f32[1,64,20,20]
+  %6 = (%3, %5): // (f32[1,64,20,20], f32[1,64,20,20])
+  
+}
+%TileAct1Case_0_TileConv2dCase_0_TileAct1Case_0_TileConv2dCase_0 = fusion<k230>(%var_1343: i8[1,64,40,40]): // (i8[1,64,40,40]) -> f32[1,128,20,20]
+{
+  %0 = GNNELoad(%var_1343: i8[1,64,40,40]): // i8[1,64,40,40]
+  %1 = GNNELoadW(const(i8[128,64,3,3])): // i8[128,64,3,3]
+  %2 = GNNELoadW(const(u8[1,1,1,128])): // u8[1,1,1,128]
+  %3 = GNNELoadW(const(u8[128])): // u8[128]
+  %4 = GNNELoadW(const(f16[1,1,128,7])): // f16[1,1,128,7]
+  %5 = GNNELoadW(const(f16[1,1,128,7])): // f16[1,1,128,7]
+  %6 = GNNELoadW(const(u8[73728])): // u8[73728]
+  %7 = GNNEConv2D(%0, %1, %2, %3, %4, %5, const(i32 : 0), const(i32 : 28), const(i32 : 0), const(DeQParam : <12, 0.02290487>), const(i64[2,2] : {{1L,1L},{1L,1L}}), const(i64[2] : {2L,2L}), const(i64[2] : {1L,1L}), const(i32 : 1), const(bool : False), const(i16 : 0), %6): // f16[1,128,20,20]
+  %8 = GNNELoadW(const(f16[1,1,1,49])): // f16[1,1,1,49]
+  %9 = GNNEActivation(%7, None, %8, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.06974301>}), const(DeQParam : {<0, 1>}), const(i32 : 1), const(bool : True)): // i8[1,128,20,20]
+  %10 = GNNELoadW(const(i8[128,144,1,1])): // i8[128,144,1,1]
+  %11 = GNNELoadW(const(u8[128])): // u8[128]
+  %12 = GNNELoadW(const(f16[1,1,128,7])): // f16[1,1,128,7]
+  %13 = GNNELoadW(const(f16[1,1,128,7])): // f16[1,1,128,7]
+  %14 = GNNELoadW(const(u8[16384])): // u8[16384]
+  %15 = GNNEConv2D(%9, %10, %2, %11, %12, %13, const(i32 : 0), const(i32 : 26), const(i32 : 0), const(DeQParam : <11, 0.025519269>), const(i32[2,2] : {{0,0},{0,0}}), const(i32[2] : {1,1}), const(i32[2] : {1,1}), const(i32 : 1), const(bool : False), const(i16 : 0), %14): // f16[1,128,20,20]
+  %16 = GNNELoadW(const(f16[1,1,1,49])): // f16[1,1,1,49]
+  %17 = GNNEActivation(%15, None, %16, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.113021754>}), const(DeQParam : {<0, 1>}), const(i32 : 1), const(bool : True)): // f16[1,128,20,20]
+  %18 = GNNEStore(%17, const(i64[4] : {1L,1L,1L,1L})): // f32[1,128,20,20]
+}
+%TileAct1Case_0_TileConv2dCase_0_TileAct1Case_0_concat = fusion<k230>(%var_1507: f32[1,32,40,40], %var_1508: f32[1,32,40,40], %var_1509: f32[1,32,40,40], %var_1510: f32[1,32,40,40]): // (f32[1,32,40,40], f32[1,32,40,40], f32[1,32,40,40], f32[1,32,40,40]) -> i8[1,64,40,40]
+{
+  %0 = (%var_1507: f32[1,32,40,40], %var_1508: f32[1,32,40,40], %var_1509: f32[1,32,40,40], %var_1510: f32[1,32,40,40]): // (f32[1,32,40,40], f32[1,32,40,40], f32[1,32,40,40], f32[1,32,40,40])
+  
+  %1 = Concat(Axis: 1, %0): // f32[1,128,40,40]
+  %2 = GNNELoad(%1): // f16[1,128,40,40]
+  %3 = GNNELoadW(const(f16[1,1,128,7])): // f16[1,1,128,7]
+  %4 = GNNEActivation(%2, None, %3, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.0593623>}), const(DeQParam : {<0, 0.0593623>}), const(i32 : 128), const(bool : False)): // i8[1,128,40,40]
+  %5 = GNNELoadW(const(i8[64,128,1,1])): // i8[64,128,1,1]
+  %6 = GNNELoadW(const(u8[1,1,1,64])): // u8[1,1,1,64]
+  %7 = GNNELoadW(const(u8[64])): // u8[64]
+  %8 = GNNELoadW(const(f16[1,1,64,7])): // f16[1,1,64,7]
+  %9 = GNNELoadW(const(f16[1,1,64,7])): // f16[1,1,64,7]
+  %10 = GNNELoadW(const(u8[8192])): // u8[8192]
+  %11 = GNNEConv2D(%4, %5, %6, %7, %8, %9, const(i32 : 0), const(i32 : 27), const(i32 : 0), const(DeQParam : <25, 0.032839414>), const(i64[2,2] : {{0L,0L},{0L,0L}}), const(i64[2] : {1L,1L}), const(i64[2] : {1L,1L}), const(i32 : 1), const(bool : False), const(i16 : 0), %10): // f16[1,64,40,40]
+  %12 = GNNELoadW(const(f16[1,1,1,49])): // f16[1,1,1,49]
+  %13 = GNNEActivation(%11, None, %12, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.07558728>}), const(DeQParam : {<0, 1>}), const(i32 : 1), const(bool : True)): // i8[1,64,40,40]
+  %14 = GNNEStore(%13, const(i64[4] : {1L,1L,1L,1L})): // i8[1,64,40,40]
+}
+%TileSplitCase_0 = fusion<k230>(%var_1530: f32[1,64,40,40]): // (f32[1,64,40,40]) -> (f32[1,32,40,40], f32[1,32,40,40])
+{
+  %0 = GNNELoad(%var_1530: f32[1,64,40,40]): // f16[1,64,40,40]
+  %1 = Split(%0, const(i32 : 1), const(i32[2] : {32,32})): // (f16[1,32,40,40], f16[1,32,40,40])
+  %2 = GetItem(%1, const(i32 : 0)): // f16[1,32,40,40]
+  %3 = GNNEStore(%2, const(i64[4] : {1L,1L,1L,1L})): // f32[1,32,40,40]
+  %4 = GetItem(%1, const(i32 : 1)): // f16[1,32,40,40]
+  %5 = GNNEStore(%4, const(i64[4] : {1L,1L,1L,1L})): // f32[1,32,40,40]
+  %6 = (%3, %5): // (f32[1,32,40,40], f32[1,32,40,40])
+  
+}
+%TileAct1Case_0_TileConv2dCase_0_TileAct1Case_0_TileConv2dCase_0_TileAct1Case_0_TileConv2dCase_0_TileAct1Case_0_concat = fusion<k230>(%var_1502: f32[1,16,80,80], %var_1503: f32[1,16,80,80], %var_1504: f32[1,16,80,80]): // (f32[1,16,80,80], f32[1,16,80,80], f32[1,16,80,80]) -> f32[1,64,40,40]
+{
+  %0 = (%var_1502: f32[1,16,80,80], %var_1503: f32[1,16,80,80], %var_1504: f32[1,16,80,80]): // (f32[1,16,80,80], f32[1,16,80,80], f32[1,16,80,80])
+  
+  %1 = Concat(Axis: 1, %0): // f32[1,48,80,80]
+  %2 = GNNELoad(%1): // f16[1,48,80,80]
+  %3 = GNNELoadW(const(f16[1,1,48,7])): // f16[1,1,48,7]
+  %4 = GNNEActivation(%2, None, %3, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.26318634>}), const(DeQParam : {<0, 0.26318634>}), const(i32 : 48), const(bool : False)): // i8[1,48,80,80]
+  %5 = GNNELoadW(const(i8[32,48,1,1])): // i8[32,48,1,1]
+  %6 = GNNELoadW(const(u8[1,1,1,32])): // u8[1,1,1,32]
+  %7 = GNNELoadW(const(u8[32])): // u8[32]
+  %8 = GNNELoadW(const(f16[1,1,32,7])): // f16[1,1,32,7]
+  %9 = GNNELoadW(const(f16[1,1,32,7])): // f16[1,1,32,7]
+  %10 = GNNELoadW(const(u8[1536])): // u8[1536]
+  %11 = GNNEConv2D(%4, %5, %6, %7, %8, %9, const(i32 : 0), const(i32 : 24), const(i32 : 0), const(DeQParam : <4, 0.13326114>), const(i64[2,2] : {{0L,0L},{0L,0L}}), const(i64[2] : {1L,1L}), const(i64[2] : {1L,1L}), const(i32 : 1), const(bool : False), const(i16 : 0), %10): // f16[1,32,80,80]
+  %12 = GNNELoadW(const(f16[1,1,1,49])): // f16[1,1,1,49]
+  %13 = GNNEActivation(%11, None, %12, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.16542143>}), const(DeQParam : {<0, 1>}), const(i32 : 1), const(bool : True)): // i8[1,32,80,80]
+  %14 = GNNELoadW(const(i8[64,32,3,3])): // i8[64,32,3,3]
+  %15 = GNNELoadW(const(u8[1,1,1,64])): // u8[1,1,1,64]
+  %16 = GNNELoadW(const(u8[64])): // u8[64]
+  %17 = GNNELoadW(const(f16[1,1,64,7])): // f16[1,1,64,7]
+  %18 = GNNELoadW(const(f16[1,1,64,7])): // f16[1,1,64,7]
+  %19 = GNNELoadW(const(u8[18432])): // u8[18432]
+  %20 = GNNEConv2D(%13, %14, %15, %16, %17, %18, const(i32 : 0), const(i32 : 27), const(i32 : 0), const(DeQParam : <5, 0.054817125>), const(i64[2,2] : {{1L,1L},{1L,1L}}), const(i64[2] : {2L,2L}), const(i64[2] : {1L,1L}), const(i32 : 1), const(bool : False), const(i16 : 0), %19): // f16[1,64,40,40]
+  %21 = GNNELoadW(const(f16[1,1,1,49])): // f16[1,1,1,49]
+  %22 = GNNEActivation(%20, None, %21, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.0731122>}), const(DeQParam : {<0, 1>}), const(i32 : 1), const(bool : True)): // i8[1,64,40,40]
+  %23 = GNNELoadW(const(i8[64,64,1,1])): // i8[64,64,1,1]
+  %24 = GNNELoadW(const(u8[64])): // u8[64]
+  %25 = GNNELoadW(const(f16[1,1,64,7])): // f16[1,1,64,7]
+  %26 = GNNELoadW(const(f16[1,1,64,7])): // f16[1,1,64,7]
+  %27 = GNNELoadW(const(u8[4096])): // u8[4096]
+  %28 = GNNEConv2D(%22, %23, %15, %24, %25, %26, const(i32 : 0), const(i32 : 26), const(i32 : 0), const(DeQParam : <10, 0.027841276>), const(i64[2,2] : {{0L,0L},{0L,0L}}), const(i64[2] : {1L,1L}), const(i64[2] : {1L,1L}), const(i32 : 1), const(bool : False), const(i16 : 0), %27): // f16[1,64,40,40]
+  %29 = GNNELoadW(const(f16[1,1,1,49])): // f16[1,1,1,49]
+  %30 = GNNEActivation(%28, None, %29, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.09208604>}), const(DeQParam : {<0, 1>}), const(i32 : 1), const(bool : True)): // f16[1,64,40,40]
+  %31 = GNNEStore(%30, const(i64[4] : {1L,1L,1L,1L})): // f32[1,64,40,40]
+}
+%TileSplitCase_0 = fusion<k230>(%var_1529: f32[1,32,80,80]): // (f32[1,32,80,80]) -> (f32[1,16,80,80], f32[1,16,80,80])
+{
+  %0 = GNNELoad(%var_1529: f32[1,32,80,80]): // f16[1,32,80,80]
+  %1 = Split(%0, const(i32 : 1), const(i32[2] : {16,16})): // (f16[1,16,80,80], f16[1,16,80,80])
+  %2 = GetItem(%1, const(i32 : 0)): // f16[1,16,80,80]
+  %3 = GNNEStore(%2, const(i64[4] : {1L,1L,1L,1L})): // f32[1,16,80,80]
+  %4 = GetItem(%1, const(i32 : 1)): // f16[1,16,80,80]
+  %5 = GNNEStore(%4, const(i64[4] : {1L,1L,1L,1L})): // f32[1,16,80,80]
+  %6 = (%3, %5): // (f32[1,16,80,80], f32[1,16,80,80])
+  
+}
+%TileAct1Case_0_TileConv2dCase_0_TileAct1Case_0_TileConv2dCase_0_TileAct1Case_0_TileConv2dCase_0 = fusion<k230>(%var_1319: i8[1,3,320,320]): // (i8[1,3,320,320]) -> f32[1,32,80,80]
+{
+  %0 = GNNELoad(%var_1319: i8[1,3,320,320]): // i8[1,3,320,320]
+  %1 = GNNELoadW(const(i8[16,3,3,3])): // i8[16,3,3,3]
+  %2 = GNNELoadW(const(u8[1,1,1,16])): // u8[1,1,1,16]
+  %3 = GNNELoadW(const(u8[16])): // u8[16]
+  %4 = GNNELoadW(const(f16[1,1,16,7])): // f16[1,1,16,7]
+  %5 = GNNELoadW(const(f16[1,1,16,7])): // f16[1,1,16,7]
+  %6 = GNNELoadW(const(u8[432])): // u8[432]
+  %7 = GNNEConv2D(%0, %1, %2, %3, %4, %5, const(i32 : 0), const(i32 : 25), const(i32 : 0), const(DeQParam : <0, 0.003921569>), const(i32[2,2] : {{1,1},{1,1}}), const(i64[2] : {2L,2L}), const(i64[2] : {1L,1L}), const(i32 : 1), const(bool : False), const(i16 : 0), %6): // f16[1,16,160,160]
+  %8 = GNNELoadW(const(f16[1,1,1,49])): // f16[1,1,1,49]
+  %9 = GNNEActivation(%7, None, %8, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.43626243>}), const(DeQParam : {<0, 1>}), const(i32 : 1), const(bool : True)): // i8[1,16,160,160]
+  %10 = GNNELoadW(const(i8[32,16,3,3])): // i8[32,16,3,3]
+  %11 = GNNELoadW(const(u8[1,1,1,32])): // u8[1,1,1,32]
+  %12 = GNNELoadW(const(u8[32])): // u8[32]
+  %13 = GNNELoadW(const(f16[1,1,32,7])): // f16[1,1,32,7]
+  %14 = GNNELoadW(const(f16[1,1,32,7])): // f16[1,1,32,7]
+  %15 = GNNELoadW(const(u8[4608])): // u8[4608]
+  %16 = GNNEConv2D(%9, %10, %11, %12, %13, %14, const(i32 : 0), const(i32 : 22), const(i32 : 0), const(DeQParam : <1, 0.21836782>), const(i64[2,2] : {{1L,1L},{1L,1L}}), const(i64[2] : {2L,2L}), const(i64[2] : {1L,1L}), const(i32 : 1), const(bool : False), const(i16 : 0), %15): // f16[1,32,80,80]
+  %17 = GNNELoadW(const(f16[1,1,1,49])): // f16[1,1,1,49]
+  %18 = GNNEActivation(%16, None, %17, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 1.373904>}), const(DeQParam : {<0, 1>}), const(i32 : 1), const(bool : True)): // i8[1,32,80,80]
+  %19 = GNNELoadW(const(i8[32,32,1,1])): // i8[32,32,1,1]
+  %20 = GNNELoadW(const(u8[32])): // u8[32]
+  %21 = GNNELoadW(const(f16[1,1,32,7])): // f16[1,1,32,7]
+  %22 = GNNELoadW(const(f16[1,1,32,7])): // f16[1,1,32,7]
+  %23 = GNNELoadW(const(u8[1024])): // u8[1024]
+  %24 = GNNEConv2D(%18, %19, %11, %20, %21, %22, const(i32 : 0), const(i32 : 22), const(i32 : 0), const(DeQParam : <1, 0.49712688>), const(i64[2,2] : {{0L,0L},{0L,0L}}), const(i64[2] : {1L,1L}), const(i64[2] : {1L,1L}), const(i32 : 1), const(bool : False), const(i16 : 0), %23): // f16[1,32,80,80]
+  %25 = GNNELoadW(const(f16[1,1,1,49])): // f16[1,1,1,49]
+  %26 = GNNEActivation(%24, None, %25, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.6430614>}), const(DeQParam : {<0, 1>}), const(i32 : 1), const(bool : True)): // f16[1,32,80,80]
+  %27 = GNNEStore(%26, const(i64[4] : {1L,1L,1L,1L})): // f32[1,32,80,80]
+}
+%TileResizeCase_0 = fusion<k230>(%var_170: i8[1,3,640,640]): // (i8[1,3,640,640]) -> i8[1,3,320,320]
+{
+  %0 = GNNELoad(%var_170: i8[1,3,640,640]): // i8[1,3,640,640]
+  %1 = Ai2dResize(%0, const(i32[2] : {320,320}), const(i32 : 0), const(QuatParm : new(0,127f))): // i8[1,3,320,320]
+  %2 = GNNEStore(%1, const(i64[4] : {1L,1L,1L,1L})): // i8[1,3,320,320]
+}
+%TileAct1Case_0 = fusion<k230>(%var_71: f32[1,3,640,640]): // (f32[1,3,640,640]) -> i8[1,3,640,640]
+{
+  %0 = GNNELoad(%var_71: f32[1,3,640,640]): // f16[1,3,640,640]
+  %1 = GNNELoadW(const(f16[1,1,3,7])): // f16[1,1,3,7]
+  %2 = GNNEActivation(%0, None, %1, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.007874016>}), const(DeQParam : {<0, 0.007874016>}), const(i32 : 3), const(bool : False)): // i8[1,3,640,640]
+  %3 = GNNEStore(%2, const(i64[4] : {1L,1L,1L,1L})): // i8[1,3,640,640]
+}
+%0 = %TileAct1Case_0(%var_2: f32[1,3,640,640]): // i8[1,3,640,640]
+%1 = %TileResizeCase_0(%0): // i8[1,3,320,320]
+%2 = %TileAct1Case_0_TileConv2dCase_0_TileAct1Case_0_TileConv2dCase_0_TileAct1Case_0_TileConv2dCase_0(%1): // f32[1,32,80,80]
+%3 = %TileSplitCase_0(%2): // (f32[1,16,80,80], f32[1,16,80,80])
+%4 = GetItem(%3, const(i32 : 0)): // f32[1,16,80,80]
+%5 = GetItem(%3, const(i32 : 1)): // f32[1,16,80,80]
+%TileAct1Case_0_TileAct1Case_0_TileConv2dCase_0_TileAct1Case_0_TileConv2dCase_0_TileAct1Case_0 = fusion<k230>(%var_1432: f32[1,16,80,80]): // (f32[1,16,80,80]) -> f32[1,16,80,80]
+{
+  %0 = GNNELoad(%var_1432: f32[1,16,80,80]): // f16[1,16,80,80]
+  %1 = GNNELoadW(const(f16[1,1,16,7])): // f16[1,1,16,7]
+  %2 = GNNEActivation(%0, None, %1, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.086550064>}), const(DeQParam : {<0, 0.086550064>}), const(i32 : 16), const(bool : False)): // i8[1,16,80,80]
+  %3 = GNNELoadW(const(i8[16,16,3,3])): // i8[16,16,3,3]
+  %4 = GNNELoadW(const(u8[1,1,1,16])): // u8[1,1,1,16]
+  %5 = GNNELoadW(const(u8[16])): // u8[16]
+  %6 = GNNELoadW(const(f16[1,1,16,7])): // f16[1,1,16,7]
+  %7 = GNNELoadW(const(f16[1,1,16,7])): // f16[1,1,16,7]
+  %8 = GNNELoadW(const(u8[2304])): // u8[2304]
+  %9 = GNNEConv2D(%2, %3, %4, %5, %6, %7, const(i32 : 0), const(i32 : 25), const(i32 : 0), const(DeQParam : <6, 0.044197343>), const(i64[2,2] : {{1L,1L},{1L,1L}}), const(i64[2] : {1L,1L}), const(i64[2] : {1L,1L}), const(i32 : 1), const(bool : False), const(i16 : 0), %8): // f16[1,16,80,80]
+  %10 = GNNELoadW(const(f16[1,1,1,49])): // f16[1,1,1,49]
+  %11 = GNNEActivation(%9, None, %10, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.25588092>}), const(DeQParam : {<0, 1>}), const(i32 : 1), const(bool : True)): // i8[1,16,80,80]
+  %12 = GNNELoadW(const(i8[16,16,3,3])): // i8[16,16,3,3]
+  %13 = GNNELoadW(const(u8[16])): // u8[16]
+  %14 = GNNELoadW(const(f16[1,1,16,7])): // f16[1,1,16,7]
+  %15 = GNNELoadW(const(f16[1,1,16,7])): // f16[1,1,16,7]
+  %16 = GNNELoadW(const(u8[2304])): // u8[2304]
+  %17 = GNNEConv2D(%11, %12, %4, %13, %14, %15, const(i32 : 0), const(i32 : 25), const(i32 : 0), const(DeQParam : <3, 0.088893995>), const(i64[2,2] : {{1L,1L},{1L,1L}}), const(i64[2] : {1L,1L}), const(i64[2] : {1L,1L}), const(i32 : 1), const(bool : False), const(i16 : 0), %16): // f16[1,16,80,80]
+  %18 = GNNELoadW(const(f16[1,1,1,49])): // f16[1,1,1,49]
+  %19 = GNNEActivation(%17, None, %18, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.21623497>}), const(DeQParam : {<0, 1>}), const(i32 : 1), const(bool : True)): // i8[1,16,80,80]
+  %20 = GNNELoadW(const(f16[1,1,16,7])): // f16[1,1,16,7]
+  %21 = GNNEActivation(%2, %19, %20, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.086550064>}), const(DeQParam : {<0, 0.13057092>}), const(i32 : 16), const(bool : False)): // f16[1,16,80,80]
+  %22 = GNNEStore(%21, const(i64[4] : {1L,1L,1L,1L})): // f32[1,16,80,80]
+}
+%6 = %TileAct1Case_0_TileAct1Case_0_TileConv2dCase_0_TileAct1Case_0_TileConv2dCase_0_TileAct1Case_0(%5): // f32[1,16,80,80]
+%7 = %TileAct1Case_0_TileConv2dCase_0_TileAct1Case_0_TileConv2dCase_0_TileAct1Case_0_TileConv2dCase_0_TileAct1Case_0_concat(%4, %5, %6): // f32[1,64,40,40]
+%8 = %TileSplitCase_0(%7): // (f32[1,32,40,40], f32[1,32,40,40])
+%9 = GetItem(%8, const(i32 : 0)): // f32[1,32,40,40]
+%10 = GetItem(%8, const(i32 : 1)): // f32[1,32,40,40]
+%TileAct1Case_0_TileAct1Case_0_TileConv2dCase_0_TileAct1Case_0_TileConv2dCase_0_TileAct1Case_0 = fusion<k230>(%var_1438: f32[1,32,40,40]): // (f32[1,32,40,40]) -> f32[1,32,40,40]
+{
+  %0 = GNNELoad(%var_1438: f32[1,32,40,40]): // f16[1,32,40,40]
+  %1 = GNNELoadW(const(f16[1,1,32,7])): // f16[1,1,32,7]
+  %2 = GNNEActivation(%0, None, %1, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.02811546>}), const(DeQParam : {<0, 0.02811546>}), const(i32 : 32), const(bool : False)): // i8[1,32,40,40]
+  %3 = GNNELoadW(const(i8[32,32,3,3])): // i8[32,32,3,3]
+  %4 = GNNELoadW(const(u8[1,1,1,32])): // u8[1,1,1,32]
+  %5 = GNNELoadW(const(u8[32])): // u8[32]
+  %6 = GNNELoadW(const(f16[1,1,32,7])): // f16[1,1,32,7]
+  %7 = GNNELoadW(const(f16[1,1,32,7])): // f16[1,1,32,7]
+  %8 = GNNELoadW(const(u8[9216])): // u8[9216]
+  %9 = GNNEConv2D(%2, %3, %4, %5, %6, %7, const(i32 : 0), const(i32 : 28), const(i32 : 0), const(DeQParam : <18, 0.015094619>), const(i64[2,2] : {{1L,1L},{1L,1L}}), const(i64[2] : {1L,1L}), const(i64[2] : {1L,1L}), const(i32 : 1), const(bool : False), const(i16 : 0), %8): // f16[1,32,40,40]
+  %10 = GNNELoadW(const(f16[1,1,1,49])): // f16[1,1,1,49]
+  %11 = GNNEActivation(%9, None, %10, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.046628803>}), const(DeQParam : {<0, 1>}), const(i32 : 1), const(bool : True)): // i8[1,32,40,40]
+  %12 = GNNELoadW(const(i8[32,32,3,3])): // i8[32,32,3,3]
+  %13 = GNNELoadW(const(u8[32])): // u8[32]
+  %14 = GNNELoadW(const(f16[1,1,32,7])): // f16[1,1,32,7]
+  %15 = GNNELoadW(const(f16[1,1,32,7])): // f16[1,1,32,7]
+  %16 = GNNELoadW(const(u8[9216])): // u8[9216]
+  %17 = GNNEConv2D(%11, %12, %4, %13, %14, %15, const(i32 : 0), const(i32 : 27), const(i32 : 0), const(DeQParam : <17, 0.016085012>), const(i64[2,2] : {{1L,1L},{1L,1L}}), const(i64[2] : {1L,1L}), const(i64[2] : {1L,1L}), const(i32 : 1), const(bool : False), const(i16 : 0), %16): // f16[1,32,40,40]
+  %18 = GNNELoadW(const(f16[1,1,1,49])): // f16[1,1,1,49]
+  %19 = GNNEActivation(%17, None, %18, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.043337375>}), const(DeQParam : {<0, 1>}), const(i32 : 1), const(bool : True)): // i8[1,32,40,40]
+  %20 = GNNELoadW(const(f16[1,1,32,7])): // f16[1,1,32,7]
+  %21 = GNNEActivation(%2, %19, %20, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.02811546>}), const(DeQParam : {<0, 0.038520418>}), const(i32 : 32), const(bool : False)): // f16[1,32,40,40]
+  %22 = GNNEStore(%21, const(i64[4] : {1L,1L,1L,1L})): // f32[1,32,40,40]
+}
+%11 = %TileAct1Case_0_TileAct1Case_0_TileConv2dCase_0_TileAct1Case_0_TileConv2dCase_0_TileAct1Case_0(%10): // f32[1,32,40,40]
+%TileAct1Case_0_TileAct1Case_0_TileConv2dCase_0_TileAct1Case_0_TileConv2dCase_0_TileAct1Case_0 = fusion<k230>(%var_1444: f32[1,32,40,40]): // (f32[1,32,40,40]) -> f32[1,32,40,40]
+{
+  %0 = GNNELoad(%var_1444: f32[1,32,40,40]): // f16[1,32,40,40]
+  %1 = GNNELoadW(const(f16[1,1,32,7])): // f16[1,1,32,7]
+  %2 = GNNEActivation(%0, None, %1, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.0593623>}), const(DeQParam : {<0, 0.0593623>}), const(i32 : 32), const(bool : False)): // i8[1,32,40,40]
+  %3 = GNNELoadW(const(i8[32,32,3,3])): // i8[32,32,3,3]
+  %4 = GNNELoadW(const(u8[1,1,1,32])): // u8[1,1,1,32]
+  %5 = GNNELoadW(const(u8[32])): // u8[32]
+  %6 = GNNELoadW(const(f16[1,1,32,7])): // f16[1,1,32,7]
+  %7 = GNNELoadW(const(f16[1,1,32,7])): // f16[1,1,32,7]
+  %8 = GNNELoadW(const(u8[9216])): // u8[9216]
+  %9 = GNNEConv2D(%2, %3, %4, %5, %6, %7, const(i32 : 0), const(i32 : 27), const(i32 : 0), const(DeQParam : <25, 0.032839414>), const(i64[2,2] : {{1L,1L},{1L,1L}}), const(i64[2] : {1L,1L}), const(i64[2] : {1L,1L}), const(i32 : 1), const(bool : False), const(i16 : 0), %8): // f16[1,32,40,40]
+  %10 = GNNELoadW(const(f16[1,1,1,49])): // f16[1,1,1,49]
+  %11 = GNNEActivation(%9, None, %10, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.055625346>}), const(DeQParam : {<0, 1>}), const(i32 : 1), const(bool : True)): // i8[1,32,40,40]
+  %12 = GNNELoadW(const(i8[32,32,3,3])): // i8[32,32,3,3]
+  %13 = GNNELoadW(const(u8[32])): // u8[32]
+  %14 = GNNELoadW(const(f16[1,1,32,7])): // f16[1,1,32,7]
+  %15 = GNNELoadW(const(f16[1,1,32,7])): // f16[1,1,32,7]
+  %16 = GNNELoadW(const(u8[9216])): // u8[9216]
+  %17 = GNNEConv2D(%11, %12, %4, %13, %14, %15, const(i32 : 0), const(i32 : 27), const(i32 : 0), const(DeQParam : <24, 0.011669578>), const(i64[2,2] : {{1L,1L},{1L,1L}}), const(i64[2] : {1L,1L}), const(i64[2] : {1L,1L}), const(i32 : 1), const(bool : False), const(i16 : 0), %16): // f16[1,32,40,40]
+  %18 = GNNELoadW(const(f16[1,1,1,49])): // f16[1,1,1,49]
+  %19 = GNNEActivation(%17, None, %18, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.06110376>}), const(DeQParam : {<0, 1>}), const(i32 : 1), const(bool : True)): // i8[1,32,40,40]
+  %20 = GNNELoadW(const(f16[1,1,32,7])): // f16[1,1,32,7]
+  %21 = GNNEActivation(%2, %19, %20, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.0593623>}), const(DeQParam : {<0, 0.05370774>}), const(i32 : 32), const(bool : False)): // f16[1,32,40,40]
+  %22 = GNNEStore(%21, const(i64[4] : {1L,1L,1L,1L})): // f32[1,32,40,40]
+}
+%12 = %TileAct1Case_0_TileAct1Case_0_TileConv2dCase_0_TileAct1Case_0_TileConv2dCase_0_TileAct1Case_0(%11): // f32[1,32,40,40]
+%13 = %TileAct1Case_0_TileConv2dCase_0_TileAct1Case_0_concat(%9, %10, %11, %12): // i8[1,64,40,40]
+%14 = %TileAct1Case_0_TileConv2dCase_0_TileAct1Case_0_TileConv2dCase_0(%13): // f32[1,128,20,20]
+%15 = %TileSplitCase_0(%14): // (f32[1,64,20,20], f32[1,64,20,20])
+%16 = GetItem(%15, const(i32 : 0)): // f32[1,64,20,20]
+%17 = GetItem(%15, const(i32 : 1)): // f32[1,64,20,20]
+%TileAct1Case_0_TileAct1Case_0_TileConv2dCase_0_TileAct1Case_0_TileConv2dCase_0_TileAct1Case_0 = fusion<k230>(%var_1450: f32[1,64,20,20]): // (f32[1,64,20,20]) -> f32[1,64,20,20]
+{
+  %0 = GNNELoad(%var_1450: f32[1,64,20,20]): // f16[1,64,20,20]
+  %1 = GNNELoadW(const(f16[1,1,64,7])): // f16[1,1,64,7]
+  %2 = GNNEActivation(%0, None, %1, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.027298195>}), const(DeQParam : {<0, 0.027298195>}), const(i32 : 64), const(bool : False)): // i8[1,64,20,20]
+  %3 = GNNELoadW(const(i8[64,64,3,3])): // i8[64,64,3,3]
+  %4 = GNNELoadW(const(u8[1,1,1,64])): // u8[1,1,1,64]
+  %5 = GNNELoadW(const(u8[64])): // u8[64]
+  %6 = GNNELoadW(const(f16[1,1,64,7])): // f16[1,1,64,7]
+  %7 = GNNELoadW(const(f16[1,1,64,7])): // f16[1,1,64,7]
+  %8 = GNNELoadW(const(u8[36864])): // u8[36864]
+  %9 = GNNEConv2D(%2, %3, %4, %5, %6, %7, const(i32 : 0), const(i32 : 27), const(i32 : 0), const(DeQParam : <19, 0.014687589>), const(i64[2,2] : {{1L,1L},{1L,1L}}), const(i64[2] : {1L,1L}), const(i64[2] : {1L,1L}), const(i32 : 1), const(bool : False), const(i16 : 0), %8): // f16[1,64,20,20]
+  %10 = GNNELoadW(const(f16[1,1,1,49])): // f16[1,1,1,49]
+  %11 = GNNEActivation(%9, None, %10, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.05196149>}), const(DeQParam : {<0, 1>}), const(i32 : 1), const(bool : True)): // i8[1,64,20,20]
+  %12 = GNNELoadW(const(i8[64,64,3,3])): // i8[64,64,3,3]
+  %13 = GNNELoadW(const(u8[64])): // u8[64]
+  %14 = GNNELoadW(const(f16[1,1,64,7])): // f16[1,1,64,7]
+  %15 = GNNELoadW(const(f16[1,1,64,7])): // f16[1,1,64,7]
+  %16 = GNNELoadW(const(u8[36864])): // u8[36864]
+  %17 = GNNEConv2D(%11, %12, %4, %13, %14, %15, const(i32 : 0), const(i32 : 28), const(i32 : 0), const(DeQParam : <12, 0.022628825>), const(i64[2,2] : {{1L,1L},{1L,1L}}), const(i64[2] : {1L,1L}), const(i64[2] : {1L,1L}), const(i32 : 1), const(bool : False), const(i16 : 0), %16): // f16[1,64,20,20]
+  %18 = GNNELoadW(const(f16[1,1,1,49])): // f16[1,1,1,49]
+  %19 = GNNEActivation(%17, None, %18, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.047310587>}), const(DeQParam : {<0, 1>}), const(i32 : 1), const(bool : True)): // i8[1,64,20,20]
+  %20 = GNNELoadW(const(f16[1,1,64,7])): // f16[1,1,64,7]
+  %21 = GNNEActivation(%2, %19, %20, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.027298195>}), const(DeQParam : {<0, 0.042186406>}), const(i32 : 64), const(bool : False)): // f16[1,64,20,20]
+  %22 = GNNEStore(%21, const(i64[4] : {1L,1L,1L,1L})): // f32[1,64,20,20]
+}
+%18 = %TileAct1Case_0_TileAct1Case_0_TileConv2dCase_0_TileAct1Case_0_TileConv2dCase_0_TileAct1Case_0(%17): // f32[1,64,20,20]
+%TileAct1Case_0_TileAct1Case_0_TileConv2dCase_0_TileAct1Case_0_TileConv2dCase_0_TileAct1Case_0 = fusion<k230>(%var_1456: f32[1,64,20,20]): // (f32[1,64,20,20]) -> f32[1,64,20,20]
+{
+  %0 = GNNELoad(%var_1456: f32[1,64,20,20]): // f16[1,64,20,20]
+  %1 = GNNELoadW(const(f16[1,1,64,7])): // f16[1,1,64,7]
+  %2 = GNNEActivation(%0, None, %1, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.056496434>}), const(DeQParam : {<0, 0.056496434>}), const(i32 : 64), const(bool : False)): // i8[1,64,20,20]
+  %3 = GNNELoadW(const(i8[64,64,3,3])): // i8[64,64,3,3]
+  %4 = GNNELoadW(const(u8[1,1,1,64])): // u8[1,1,1,64]
+  %5 = GNNELoadW(const(u8[64])): // u8[64]
+  %6 = GNNELoadW(const(f16[1,1,64,7])): // f16[1,1,64,7]
+  %7 = GNNELoadW(const(f16[1,1,64,7])): // f16[1,1,64,7]
+  %8 = GNNELoadW(const(u8[36864])): // u8[36864]
+  %9 = GNNEConv2D(%2, %3, %4, %5, %6, %7, const(i32 : 0), const(i32 : 27), const(i32 : 0), const(DeQParam : <27, 0.031411353>), const(i64[2,2] : {{1L,1L},{1L,1L}}), const(i64[2] : {1L,1L}), const(i64[2] : {1L,1L}), const(i32 : 1), const(bool : False), const(i16 : 0), %8): // f16[1,64,20,20]
+  %10 = GNNELoadW(const(f16[1,1,1,49])): // f16[1,1,1,49]
+  %11 = GNNEActivation(%9, None, %10, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.05396534>}), const(DeQParam : {<0, 1>}), const(i32 : 1), const(bool : True)): // i8[1,64,20,20]
+  %12 = GNNELoadW(const(i8[64,64,3,3])): // i8[64,64,3,3]
+  %13 = GNNELoadW(const(u8[64])): // u8[64]
+  %14 = GNNELoadW(const(f16[1,1,64,7])): // f16[1,1,64,7]
+  %15 = GNNELoadW(const(f16[1,1,64,7])): // f16[1,1,64,7]
+  %16 = GNNELoadW(const(u8[36864])): // u8[36864]
+  %17 = GNNEConv2D(%11, %12, %4, %13, %14, %15, const(i32 : 0), const(i32 : 26), const(i32 : 0), const(DeQParam : <16, 0.017426802>), const(i64[2,2] : {{1L,1L},{1L,1L}}), const(i64[2] : {1L,1L}), const(i64[2] : {1L,1L}), const(i32 : 1), const(bool : False), const(i16 : 0), %16): // f16[1,64,20,20]
+  %18 = GNNELoadW(const(f16[1,1,1,49])): // f16[1,1,1,49]
+  %19 = GNNEActivation(%17, None, %18, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.059893344>}), const(DeQParam : {<0, 1>}), const(i32 : 1), const(bool : True)): // i8[1,64,20,20]
+  %20 = GNNELoadW(const(f16[1,1,64,7])): // f16[1,1,64,7]
+  %21 = GNNEActivation(%2, %19, %20, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.056496434>}), const(DeQParam : {<0, 0.052855793>}), const(i32 : 64), const(bool : False)): // f16[1,64,20,20]
+  %22 = GNNEStore(%21, const(i64[4] : {1L,1L,1L,1L})): // f32[1,64,20,20]
+}
+%19 = %TileAct1Case_0_TileAct1Case_0_TileConv2dCase_0_TileAct1Case_0_TileConv2dCase_0_TileAct1Case_0(%18): // f32[1,64,20,20]
+%20 = %TileAct1Case_0_TileConv2dCase_0_TileAct1Case_0_concat(%16, %17, %18, %19): // i8[1,128,20,20]
+%21 = %TileAct1Case_0_TileConv2dCase_0_TileAct1Case_0_TileConv2dCase_0(%20): // f32[1,256,10,10]
+%22 = %TileSplitCase_0(%21): // (f32[1,128,10,10], f32[1,128,10,10])
+%23 = GetItem(%22, const(i32 : 0)): // f32[1,128,10,10]
+%24 = GetItem(%22, const(i32 : 1)): // f32[1,128,10,10]
+%TileAct1Case_0_TileAct1Case_0_TileConv2dCase_0_TileAct1Case_0_TileConv2dCase_0_TileAct1Case_0 = fusion<k230>(%var_1462: f32[1,128,10,10]): // (f32[1,128,10,10]) -> f32[1,128,10,10]
+{
+  %0 = GNNELoad(%var_1462: f32[1,128,10,10]): // f16[1,128,10,10]
+  %1 = GNNELoadW(const(f16[1,1,128,7])): // f16[1,1,128,7]
+  %2 = GNNEActivation(%0, None, %1, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.0361466>}), const(DeQParam : {<0, 0.0361466>}), const(i32 : 128), const(bool : False)): // i8[1,128,10,10]
+  %3 = GNNELoadW(const(i8[128,128,3,3])): // i8[128,128,3,3]
+  %4 = GNNELoadW(const(u8[1,1,1,128])): // u8[1,1,1,128]
+  %5 = GNNELoadW(const(u8[128])): // u8[128]
+  %6 = GNNELoadW(const(f16[1,1,128,7])): // f16[1,1,128,7]
+  %7 = GNNELoadW(const(f16[1,1,128,7])): // f16[1,1,128,7]
+  %8 = GNNELoadW(const(u8[147456])): // u8[147456]
+  %9 = GNNEConv2D(%2, %3, %4, %5, %6, %7, const(i32 : 0), const(i32 : 28), const(i32 : 0), const(DeQParam : <15, 0.019094443>), const(i64[2,2] : {{1L,1L},{1L,1L}}), const(i64[2] : {1L,1L}), const(i64[2] : {1L,1L}), const(i32 : 1), const(bool : False), const(i16 : 0), %8): // f16[1,128,10,10]
+  %10 = GNNELoadW(const(f16[1,1,1,49])): // f16[1,1,1,49]
+  %11 = GNNEActivation(%9, None, %10, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.06772224>}), const(DeQParam : {<0, 1>}), const(i32 : 1), const(bool : True)): // i8[1,128,10,10]
+  %12 = GNNELoadW(const(i8[128,128,3,3])): // i8[128,128,3,3]
+  %13 = GNNELoadW(const(u8[128])): // u8[128]
+  %14 = GNNELoadW(const(f16[1,1,128,7])): // f16[1,1,128,7]
+  %15 = GNNELoadW(const(f16[1,1,128,7])): // f16[1,1,128,7]
+  %16 = GNNELoadW(const(u8[147456])): // u8[147456]
+  %17 = GNNEConv2D(%11, %12, %4, %13, %14, %15, const(i32 : 0), const(i32 : 27), const(i32 : 0), const(DeQParam : <14, 0.019880421>), const(i64[2,2] : {{1L,1L},{1L,1L}}), const(i64[2] : {1L,1L}), const(i64[2] : {1L,1L}), const(i32 : 1), const(bool : False), const(i16 : 0), %16): // f16[1,128,10,10]
+  %18 = GNNELoadW(const(f16[1,1,1,49])): // f16[1,1,1,49]
+  %19 = GNNEActivation(%17, None, %18, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.09932443>}), const(DeQParam : {<0, 1>}), const(i32 : 1), const(bool : True)): // i8[1,128,10,10]
+  %20 = GNNELoadW(const(f16[1,1,128,7])): // f16[1,1,128,7]
+  %21 = GNNEActivation(%2, %19, %20, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.0361466>}), const(DeQParam : {<0, 0.08620037>}), const(i32 : 128), const(bool : False)): // f16[1,128,10,10]
+  %22 = GNNEStore(%21, const(i64[4] : {1L,1L,1L,1L})): // f32[1,128,10,10]
+}
+%25 = %TileAct1Case_0_TileAct1Case_0_TileConv2dCase_0_TileAct1Case_0_TileConv2dCase_0_TileAct1Case_0(%24): // f32[1,128,10,10]
+%26 = %TileConv2dCase_0_TileAct1Case_0_TileConv2dCase_0_TileAct1Case_0_concat(%23, %24, %25): // i8[1,128,10,10]
+%TilePdp1Case_0 = fusion<k230>(%var_68: i8[1,128,10,10]): // (i8[1,128,10,10]) -> i8[1,128,10,10]
+{
+  %0 = GNNELoad(%var_68: i8[1,128,10,10]): // i8[1,128,10,10]
+  %1 = GNNEPdp1(%0, const(i32[2] : {5,5}), const(i32[2] : {1,1}), const(i32[2,2] : {{2,2},{2,2}}), const(QParam : {<0, 19.232126>}), const(DeQParam : {<0, 0.05199633>}), const(f32 : -128), const(i32 : 0), const(bool : False)): // i8[1,128,10,10]
+  %2 = GNNEStore(%1, const(i64[4] : {1L,1L,1L,1L})): // i8[1,128,10,10]
+}
+%27 = %TilePdp1Case_0(%26): // i8[1,128,10,10]
+%TilePdp1Case_0 = fusion<k230>(%var_69: i8[1,128,10,10]): // (i8[1,128,10,10]) -> i8[1,128,10,10]
+{
+  %0 = GNNELoad(%var_69: i8[1,128,10,10]): // i8[1,128,10,10]
+  %1 = GNNEPdp1(%0, const(i32[2] : {5,5}), const(i32[2] : {1,1}), const(i32[2,2] : {{2,2},{2,2}}), const(QParam : {<0, 19.232126>}), const(DeQParam : {<0, 0.05199633>}), const(f32 : -128), const(i32 : 0), const(bool : False)): // i8[1,128,10,10]
+  %2 = GNNEStore(%1, const(i64[4] : {1L,1L,1L,1L})): // i8[1,128,10,10]
+}
+%28 = %TilePdp1Case_0(%27): // i8[1,128,10,10]
+%TilePdp1Case_0 = fusion<k230>(%var_70: i8[1,128,10,10]): // (i8[1,128,10,10]) -> i8[1,128,10,10]
+{
+  %0 = GNNELoad(%var_70: i8[1,128,10,10]): // i8[1,128,10,10]
+  %1 = GNNEPdp1(%0, const(i32[2] : {5,5}), const(i32[2] : {1,1}), const(i32[2,2] : {{2,2},{2,2}}), const(QParam : {<0, 19.232126>}), const(DeQParam : {<0, 0.05199633>}), const(f32 : -128), const(i32 : 0), const(bool : False)): // i8[1,128,10,10]
+  %2 = GNNEStore(%1, const(i64[4] : {1L,1L,1L,1L})): // i8[1,128,10,10]
+}
+%29 = %TilePdp1Case_0(%28): // i8[1,128,10,10]
+%30 = (%26, %27, %28, %29): // (i8[1,128,10,10], i8[1,128,10,10], i8[1,128,10,10], i8[1,128,10,10])
+
+%31 = Concat(Axis: 1, %30): // i8[1,512,10,10]
+%32 = %TileAct1Case_0_TileConv2dCase_0(%31): // i8[1,256,10,10]
+%33 = %TileAct1Case_0(%32): // i8[1,256,20,20]
+%34 = (%33, %20): // (i8[1,256,20,20], i8[1,128,20,20])
+
+%35 = Concat(Axis: 1, %34): // i8[1,384,20,20]
+%36 = %TileAct1Case_0_TileConv2dCase_0(%35): // f32[1,128,20,20]
+%37 = %TileSplitCase_0(%36): // (f32[1,64,20,20], f32[1,64,20,20])
+%38 = GetItem(%37, const(i32 : 0)): // f32[1,64,20,20]
+%39 = %TileAct1Case_0(%38): // i8[1,64,20,20]
+%TileAct1Case_0 = fusion<k230>(%var_111: f32[1,64,20,20]): // (f32[1,64,20,20]) -> i8[1,64,20,20]
+{
+  %0 = GNNELoad(%var_111: f32[1,64,20,20]): // f16[1,64,20,20]
+  %1 = GNNELoadW(const(f16[1,1,64,7])): // f16[1,1,64,7]
+  %2 = GNNEActivation(%0, None, %1, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.048194516>}), const(DeQParam : {<0, 0.048194516>}), const(i32 : 64), const(bool : False)): // i8[1,64,20,20]
+  %3 = GNNEStore(%2, const(i64[4] : {1L,1L,1L,1L})): // i8[1,64,20,20]
+}
+%40 = GetItem(%37, const(i32 : 1)): // f32[1,64,20,20]
+%41 = %TileAct1Case_0(%40): // i8[1,64,20,20]
+%TileAct1Case_0_TileConv2dCase_0_TileAct1Case_0_TileConv2dCase_0 = fusion<k230>(%var_1367: i8[1,64,20,20]): // (i8[1,64,20,20]) -> i8[1,64,20,20]
+{
+  %0 = GNNELoad(%var_1367: i8[1,64,20,20]): // i8[1,64,20,20]
+  %1 = GNNELoadW(const(i8[64,64,3,3])): // i8[64,64,3,3]
+  %2 = GNNELoadW(const(u8[1,1,1,64])): // u8[1,1,1,64]
+  %3 = GNNELoadW(const(u8[64])): // u8[64]
+  %4 = GNNELoadW(const(f16[1,1,64,7])): // f16[1,1,64,7]
+  %5 = GNNELoadW(const(f16[1,1,64,7])): // f16[1,1,64,7]
+  %6 = GNNELoadW(const(u8[36864])): // u8[36864]
+  %7 = GNNEConv2D(%0, %1, %2, %3, %4, %5, const(i32 : 0), const(i32 : 28), const(i32 : 0), const(DeQParam : <11, 0.02509478>), const(i64[2,2] : {{1L,1L},{1L,1L}}), const(i64[2] : {1L,1L}), const(i64[2] : {1L,1L}), const(i32 : 1), const(bool : False), const(i16 : 0), %6): // f16[1,64,20,20]
+  %8 = GNNELoadW(const(f16[1,1,1,49])): // f16[1,1,1,49]
+  %9 = GNNEActivation(%7, None, %8, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.043224122>}), const(DeQParam : {<0, 1>}), const(i32 : 1), const(bool : True)): // i8[1,64,20,20]
+  %10 = GNNELoadW(const(i8[64,64,3,3])): // i8[64,64,3,3]
+  %11 = GNNELoadW(const(u8[64])): // u8[64]
+  %12 = GNNELoadW(const(f16[1,1,64,7])): // f16[1,1,64,7]
+  %13 = GNNELoadW(const(f16[1,1,64,7])): // f16[1,1,64,7]
+  %14 = GNNELoadW(const(u8[36864])): // u8[36864]
+  %15 = GNNEConv2D(%9, %10, %2, %11, %12, %13, const(i32 : 0), const(i32 : 28), const(i32 : 0), const(DeQParam : <19, 0.014359738>), const(i64[2,2] : {{1L,1L},{1L,1L}}), const(i64[2] : {1L,1L}), const(i64[2] : {1L,1L}), const(i32 : 1), const(bool : False), const(i16 : 0), %14): // f16[1,64,20,20]
+  %16 = GNNELoadW(const(f16[1,1,1,49])): // f16[1,1,1,49]
+  %17 = GNNEActivation(%15, None, %16, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.041613612>}), const(DeQParam : {<0, 1>}), const(i32 : 1), const(bool : True)): // i8[1,64,20,20]
+  %18 = GNNEStore(%17, const(i64[4] : {1L,1L,1L,1L})): // i8[1,64,20,20]
+}
+%42 = %TileAct1Case_0_TileConv2dCase_0_TileAct1Case_0_TileConv2dCase_0(%41): // i8[1,64,20,20]
+%43 = (%39, %41, %42): // (i8[1,64,20,20], i8[1,64,20,20], i8[1,64,20,20])
+
+%44 = Concat(Axis: 1, %43): // i8[1,192,20,20]
+%45 = %TileAct1Case_0_TileConv2dCase_0(%44): // i8[1,128,20,20]
+%46 = %TileAct1Case_0(%45): // i8[1,128,40,40]
+%47 = (%46, %13): // (i8[1,128,40,40], i8[1,64,40,40])
+
+%48 = Concat(Axis: 1, %47): // i8[1,192,40,40]
+%49 = %TileAct1Case_0_TileConv2dCase_0(%48): // f32[1,64,40,40]
+%50 = %TileSplitCase_0(%49): // (f32[1,32,40,40], f32[1,32,40,40])
+%51 = GetItem(%50, const(i32 : 0)): // f32[1,32,40,40]
+%52 = %TileAct1Case_0(%51): // i8[1,32,40,40]
+%TileAct1Case_0 = fusion<k230>(%var_118: f32[1,32,40,40]): // (f32[1,32,40,40]) -> i8[1,32,40,40]
+{
+  %0 = GNNELoad(%var_118: f32[1,32,40,40]): // f16[1,32,40,40]
+  %1 = GNNELoadW(const(f16[1,1,32,7])): // f16[1,1,32,7]
+  %2 = GNNEActivation(%0, None, %1, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.03678266>}), const(DeQParam : {<0, 0.03678266>}), const(i32 : 32), const(bool : False)): // i8[1,32,40,40]
+  %3 = GNNEStore(%2, const(i64[4] : {1L,1L,1L,1L})): // i8[1,32,40,40]
+}
+%53 = GetItem(%50, const(i32 : 1)): // f32[1,32,40,40]
+%54 = %TileAct1Case_0(%53): // i8[1,32,40,40]
+%TileAct1Case_0_TileConv2dCase_0_TileAct1Case_0_TileConv2dCase_0 = fusion<k230>(%var_1370: i8[1,32,40,40]): // (i8[1,32,40,40]) -> i8[1,32,40,40]
+{
+  %0 = GNNELoad(%var_1370: i8[1,32,40,40]): // i8[1,32,40,40]
+  %1 = GNNELoadW(const(i8[32,32,3,3])): // i8[32,32,3,3]
+  %2 = GNNELoadW(const(u8[1,1,1,32])): // u8[1,1,1,32]
+  %3 = GNNELoadW(const(u8[32])): // u8[32]
+  %4 = GNNELoadW(const(f16[1,1,32,7])): // f16[1,1,32,7]
+  %5 = GNNELoadW(const(f16[1,1,32,7])): // f16[1,1,32,7]
+  %6 = GNNELoadW(const(u8[9216])): // u8[9216]
+  %7 = GNNEConv2D(%0, %1, %2, %3, %4, %5, const(i32 : 0), const(i32 : 28), const(i32 : 0), const(DeQParam : <14, 0.019411225>), const(i64[2,2] : {{1L,1L},{1L,1L}}), const(i64[2] : {1L,1L}), const(i64[2] : {1L,1L}), const(i32 : 1), const(bool : False), const(i16 : 0), %6): // f16[1,32,40,40]
+  %8 = GNNELoadW(const(f16[1,1,1,49])): // f16[1,1,1,49]
+  %9 = GNNEActivation(%7, None, %8, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.041631605>}), const(DeQParam : {<0, 1>}), const(i32 : 1), const(bool : True)): // i8[1,32,40,40]
+  %10 = GNNELoadW(const(i8[32,32,3,3])): // i8[32,32,3,3]
+  %11 = GNNELoadW(const(u8[32])): // u8[32]
+  %12 = GNNELoadW(const(f16[1,1,32,7])): // f16[1,1,32,7]
+  %13 = GNNELoadW(const(f16[1,1,32,7])): // f16[1,1,32,7]
+  %14 = GNNELoadW(const(u8[9216])): // u8[9216]
+  %15 = GNNEConv2D(%9, %10, %2, %11, %12, %13, const(i32 : 0), const(i32 : 27), const(i32 : 0), const(DeQParam : <18, 0.015388252>), const(i64[2,2] : {{1L,1L},{1L,1L}}), const(i64[2] : {1L,1L}), const(i64[2] : {1L,1L}), const(i32 : 1), const(bool : False), const(i16 : 0), %14): // f16[1,32,40,40]
+  %16 = GNNELoadW(const(f16[1,1,1,49])): // f16[1,1,1,49]
+  %17 = GNNEActivation(%15, None, %16, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.039809383>}), const(DeQParam : {<0, 1>}), const(i32 : 1), const(bool : True)): // i8[1,32,40,40]
+  %18 = GNNEStore(%17, const(i64[4] : {1L,1L,1L,1L})): // i8[1,32,40,40]
+}
+%55 = %TileAct1Case_0_TileConv2dCase_0_TileAct1Case_0_TileConv2dCase_0(%54): // i8[1,32,40,40]
+%56 = (%52, %54, %55): // (i8[1,32,40,40], i8[1,32,40,40], i8[1,32,40,40])
+
+%57 = Concat(Axis: 1, %56): // i8[1,96,40,40]
+%58 = %TileAct1Case_0_TileConv2dCase_0(%57): // i8[1,64,40,40]
+%59 = %TileAct1Case_0_TileConv2dCase_0(%58): // i8[1,64,20,20]
+%60 = (%59, %45): // (i8[1,64,20,20], i8[1,128,20,20])
+
+%61 = Concat(Axis: 1, %60): // i8[1,192,20,20]
+%62 = %TileAct1Case_0_TileConv2dCase_0(%61): // f32[1,128,20,20]
+%63 = %TileSplitCase_0(%62): // (f32[1,64,20,20], f32[1,64,20,20])
+%64 = GetItem(%63, const(i32 : 0)): // f32[1,64,20,20]
+%65 = %TileAct1Case_0(%64): // i8[1,64,20,20]
+%TileAct1Case_0 = fusion<k230>(%var_127: f32[1,64,20,20]): // (f32[1,64,20,20]) -> i8[1,64,20,20]
+{
+  %0 = GNNELoad(%var_127: f32[1,64,20,20]): // f16[1,64,20,20]
+  %1 = GNNELoadW(const(f16[1,1,64,7])): // f16[1,1,64,7]
+  %2 = GNNEActivation(%0, None, %1, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.06039174>}), const(DeQParam : {<0, 0.06039174>}), const(i32 : 64), const(bool : False)): // i8[1,64,20,20]
+  %3 = GNNEStore(%2, const(i64[4] : {1L,1L,1L,1L})): // i8[1,64,20,20]
+}
+%66 = GetItem(%63, const(i32 : 1)): // f32[1,64,20,20]
+%67 = %TileAct1Case_0(%66): // i8[1,64,20,20]
+%TileAct1Case_0_TileConv2dCase_0_TileAct1Case_0_TileConv2dCase_0 = fusion<k230>(%var_1379: i8[1,64,20,20]): // (i8[1,64,20,20]) -> i8[1,64,20,20]
+{
+  %0 = GNNELoad(%var_1379: i8[1,64,20,20]): // i8[1,64,20,20]
+  %1 = GNNELoadW(const(i8[64,64,3,3])): // i8[64,64,3,3]
+  %2 = GNNELoadW(const(u8[1,1,1,64])): // u8[1,1,1,64]
+  %3 = GNNELoadW(const(u8[64])): // u8[64]
+  %4 = GNNELoadW(const(f16[1,1,64,7])): // f16[1,1,64,7]
+  %5 = GNNELoadW(const(f16[1,1,64,7])): // f16[1,1,64,7]
+  %6 = GNNELoadW(const(u8[36864])): // u8[36864]
+  %7 = GNNEConv2D(%0, %1, %2, %3, %4, %5, const(i32 : 0), const(i32 : 27), const(i32 : 0), const(DeQParam : <9, 0.031169472>), const(i64[2,2] : {{1L,1L},{1L,1L}}), const(i64[2] : {1L,1L}), const(i64[2] : {1L,1L}), const(i32 : 1), const(bool : False), const(i16 : 0), %6): // f16[1,64,20,20]
+  %8 = GNNELoadW(const(f16[1,1,1,49])): // f16[1,1,1,49]
+  %9 = GNNEActivation(%7, None, %8, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.042940892>}), const(DeQParam : {<0, 1>}), const(i32 : 1), const(bool : True)): // i8[1,64,20,20]
+  %10 = GNNELoadW(const(i8[64,64,3,3])): // i8[64,64,3,3]
+  %11 = GNNELoadW(const(u8[64])): // u8[64]
+  %12 = GNNELoadW(const(f16[1,1,64,7])): // f16[1,1,64,7]
+  %13 = GNNELoadW(const(f16[1,1,64,7])): // f16[1,1,64,7]
+  %14 = GNNELoadW(const(u8[36864])): // u8[36864]
+  %15 = GNNEConv2D(%9, %10, %2, %11, %12, %13, const(i32 : 0), const(i32 : 27), const(i32 : 0), const(DeQParam : <19, 0.0147023145>), const(i64[2,2] : {{1L,1L},{1L,1L}}), const(i64[2] : {1L,1L}), const(i64[2] : {1L,1L}), const(i32 : 1), const(bool : False), const(i16 : 0), %14): // f16[1,64,20,20]
+  %16 = GNNELoadW(const(f16[1,1,1,49])): // f16[1,1,1,49]
+  %17 = GNNEActivation(%15, None, %16, const(i32 : 0), const(i32 : 0), const(i32 : 0), const(DeQParam : {<0, 0.05935085>}), const(DeQParam : {<0, 1>}), const(i32 : 1), const(bool : True)): // i8[1,64,20,20]
+  %18 = GNNEStore(%17, const(i64[4] : {1L,1L,1L,1L})): // i8[1,64,20,20]
+}
+%68 = %TileAct1Case_0_TileConv2dCase_0_TileAct1Case_0_TileConv2dCase_0(%67): // i8[1,64,20,20]
+%69 = (%65, %67, %68): // (i8[1,64,20,20], i8[1,64,20,20], i8[1,64,20,20])
+
+%70 = Concat(Axis: 1, %69): // i8[1,192,20,20]
+%71 = %TileAct1Case_0_TileConv2dCase_0(%70): // i8[1,128,20,20]
+%72 = %TileAct1Case_0_TileConv2dCase_0(%71): // i8[1,128,10,10]
+%73 = (%72, %32): // (i8[1,128,10,10], i8[1,256,10,10])
+
+%74 = Concat(Axis: 1, %73): // i8[1,384,10,10]
+%75 = %TileAct1Case_0_TileConv2dCase_0(%74): // f32[1,256,10,10]
+%76 = %TileSplitCase_0(%75): // (f32[1,128,10,10], f32[1,128,10,10])
