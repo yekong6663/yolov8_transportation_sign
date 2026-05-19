@@ -1,9 +1,4 @@
 # 数据集和图片
-runs/
-dataset/
-dataset_4c/
-test_results/
-test_results_4c/
 
 # 模型权重
 *.pt

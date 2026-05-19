@@ -1,0 +1,11 @@
+# YOLOv8 4-Class Traffic Sign Dataset
+path: /workspaces/xxl-s-.Devcontainer-/yolo_opencv2/dataset_4c
+train: images/train
+val: images/val
+
+nc: 4
+names:
+  0: Parking
+  1: no_entry
+  2: turn_left
+  3: turn_right
